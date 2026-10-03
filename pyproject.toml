@@ -1,0 +1,60 @@
+[project]
+name = "agentflow"
+version = "0.4.0"
+description = "Autonomous multi-agent orchestration runtime: auto intent detection, model routing, parallel agents, RAG pipelines, MCP integration and guardrails."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Karan Pratap Singh", email = "karanpratapsingh72@gmail.com" }]
+keywords = [
+    "ai-agents",
+    "agentic-workflows",
+    "langgraph",
+    "rag",
+    "mcp",
+    "llm-routing",
+    "guardrails",
+    "token-optimization",
+]
+
+dependencies = [
+    "langgraph>=0.2",
+    "langchain-core>=0.3",
+    "anthropic>=0.40",
+    "pydantic>=2.7",
+    "pydantic-settings>=2.3",
+    "numpy>=1.26",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23", "httpx>=0.27", "ruff>=0.5"]
+server = ["uvicorn>=0.29"]
+
+[project.scripts]
+agentflow = "agentflow.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["agentflow*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# Depends() in a default is the documented FastAPI idiom, not a mutable default.
+"agentflow/server.py" = ["B008"]

@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "knowledge_base": {
+      "command": "python3",
+      "args": ["mcp_servers/knowledge_base.py"],
+      "description": "Internal engineering documentation and schema reference"
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
+      "description": "Sandboxed filesystem access scoped to this repository"
+    }
+  }
+}
